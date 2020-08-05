@@ -1,0 +1,8 @@
+- name: Create a VM
+  import_playbook: 01_create_vm.yml
+
+- name: Install base software
+  import_playbook: 02_install_software.yml
+
+- name: Install Application
+  import_playbook: 03_install_app.yml

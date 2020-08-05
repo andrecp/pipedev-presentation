@@ -134,3 +134,22 @@ ansible-playbook -i hosts.ini 03_install_app.yml
 ```
 
 If we have one or 10 servers all we need to do to horizontally scale the app is add more hosts to `hosts.ini`! (Of course we do not have a load balancer set up or service discovery)
+
+## Site
+
+It is common to have a single playbook that imports every playbook so that you do not need to run every single step individually!
+
+## Destroy VM
+
+We don't want to be billed for this prototype too much! Let's destroy it by passing the droplet_id as a variable.
+
+```bash
+source .env
+ansible-playbook 05_destroy_vm.yml -e"droplet_id=202731550"
+```
+
+# Final notes
+
+This is by no means a production ready setup! Please use only as a simple application reference.
+
+We barely scratched the surface of what Ansible is capable of. I recommend having a look on ansible `roles` and the `vars` system next!

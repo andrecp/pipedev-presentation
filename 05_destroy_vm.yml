@@ -1,0 +1,8 @@
+- hosts: localhost
+  tasks:
+    - name: destroy a virtual machine in digital ocean.
+      digital_ocean_droplet:
+        state: absent
+        name: pipedev-01v
+        region: TOR1
+        id: "{{droplet_id}}"
