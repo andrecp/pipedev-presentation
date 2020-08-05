@@ -1,10 +1,14 @@
 # pipedev 2020-08-05 presentation: Infrastructure management
 
+This is a hands-on tutorial on infrastructure management for a VFX pipeline meetup in Vancouver.
+
 ## Ansible
 
 This tutorial is using Ansible! You should be able to do the same with another configuration management tool such as Puppet, Salt, Chef and etc.
 
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+
+We're using version 2.9.4!
 
 ## Digital Ocean
 
@@ -55,26 +59,54 @@ Look at their API for the available images: https://developers.digitalocean.com/
 
 ### Running the playbook
 
-Our ansible playbook creates the VM and inserts our ssh key so that we can ssh in!
+Our ansible playbook creates the VM and inserts our ssh key so that we can ssh in! It is important to note that *ansible is immutable*, that means you can re-run this playbook as many times as you want and Ansible will simply no-op if it is in the desired state already.
 
 ```bash
 source .env
 ansible-playbook 01_create_vm.yml
 ```
 
-and voila! If you go to https://cloud.digitalocean.com/droplets/ you should be able to see your VM! 2 GB Ram / 40 GB of disk /  with your ssh key
+Voila! If you go to https://cloud.digitalocean.com/droplets/ you should be able to see your VM! 2 GB Ram / 40 GB of disk / 2 cores with your ssh key
 
 You can also ssh to it with 
 
 ```bash
 ssh-add /Users/$USER/.ssh/digitalocean_rsa
-ssh root@178.128.234.242
+ssh root@XXX.XXX.XXX.XXX  # Your IP
 ```
+
+It is worth noting that in a real life scenario we would'nt necessairly do things with the root ssh key. 
+
+Users would be managed via something like LDAP and a sudoers list would be maintained allowing users (or more commonly groups) to execute sudo only for what they absolutely need to.
 
 ## Installing software on the image
 
 Usually your IT department will have a blessed linux image that has some software baked into it.
 
-We can do that using Ansible! In this example we will install `python3`, `htop` and `redis`.
+We can do that using Ansible! In this example we will install `python3`, `python-twisted`, `htop` and `redis`.
 
+### First add a hosts file
 
+A hosts file in Ansible has your hosts! You can organize it in many ways and use either `ini` or `yml` format.
+
+Create a `hosts.ini` file with IP of your VM under the group `pipedev`.
+
+```
+[pipedev]
+XXX.XXX.XXX.XXX  # Your IP
+```
+
+### Install the software packages
+
+Centos8 replaced `yum` with `dnf`!
+
+```bash
+source .env
+ansible-playbook -i hosts.ini 02_install_software.yml
+```
+
+Of course this list is *much* bigger for your typical VFX studio with many many dependencies!
+
+We won't do it here but you can export your Linux image as a new Custom Linux Image so that you don't need to re-install the base level software every time you create a new machine in your studio.
+
+You can also run ansible as a cron job doing the equivalent of `git pull` a specific tag and then running `ansible-playbook` to ensure that the machine is always up-to-date.

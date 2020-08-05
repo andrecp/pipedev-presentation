@@ -1,0 +1,15 @@
+- hosts: pipedev
+  tasks:
+    - name: Add a remote rpm repository that makes htop available
+      dnf:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+        state: present
+
+    - name: Install software dependencies
+      dnf:
+        state: present
+        name:
+          - python3
+          - redis
+          - htop
+          - python3-twisted
