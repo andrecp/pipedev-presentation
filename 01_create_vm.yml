@@ -1,0 +1,12 @@
+- hosts: localhost
+  tasks:
+    - name: create a new vitual machine in digital ocean.
+      digital_ocean_droplet:
+        state: present
+        name: pipedev-01v
+        size: 2gb
+        region: TOR1
+        image: centos-8-x64
+        ssh_keys:
+          # This is an ansible template! We're retrieving the sensitive information from an environment variable.
+          - "{{ lookup('env', 'SSH_KEY_ID') }}"
