@@ -13,3 +13,4 @@
           - redis
           - htop
           - python3-flask
+          - python3-redis
