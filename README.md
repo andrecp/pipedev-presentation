@@ -83,7 +83,7 @@ Users would be managed via something like LDAP and a sudoers list would be maint
 
 Usually your IT department will have a blessed linux image that has some software baked into it.
 
-We can do that using Ansible! In this example we will install `python3`, `python-twisted`, `htop` and `redis`.
+We can do that using Ansible! In this example we will install `python3`, `python3-flask`, `htop` and `redis`.
 
 ### First add a hosts file
 
