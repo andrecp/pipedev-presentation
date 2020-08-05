@@ -1,0 +1,13 @@
+[Unit]
+Description=A silly flask app! Never run as root, ops..
+After=network.target redis.target
+
+[Service]
+User=root
+Environment=FLASK_APP=flask_app.py
+WorkingDirectory=/opt/flask_app
+ExecStart=python3 -m flask run --host=0.0.0.0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

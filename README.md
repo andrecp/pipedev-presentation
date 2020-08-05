@@ -110,3 +110,27 @@ Of course this list is *much* bigger for your typical VFX studio with many many 
 We won't do it here but you can export your Linux image as a new Custom Linux Image so that you don't need to re-install the base level software every time you create a new machine in your studio.
 
 You can also run ansible as a cron job doing the equivalent of `git pull` a specific tag and then running `ansible-playbook` to ensure that the machine is always up-to-date.
+
+## Install the app
+
+Our app architecture is quite simple! It is the hello world service.
+
+### Architecture
+
+Flask app -> Redis DB
+
+Each request to `/` returns hello world and keeps a request count in redis.
+Each request to `/count` returns the count.
+
+We're using `systemd` to manage the flask app and redis!
+
+### Install the application
+
+Create the folders, copy the files, start the servers!
+
+```bash
+source .env
+ansible-playbook -i hosts.ini 03_install_app.yml
+```
+
+If we have one or 10 servers all we need to do to horizontally scale the app is add more hosts to `hosts.ini`! (Of course we do not have a load balancer set up or service discovery)

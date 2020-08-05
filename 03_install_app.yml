@@ -1,0 +1,29 @@
+- hosts: pipedev
+  tasks:
+    - name: Make sure redis starts at boot and is started
+      systemd:
+        name: redis
+        state: started
+        enabled: true
+
+    - name: Create a folder for our flask app
+      file:
+        state: directory
+        name: /opt/flask_app
+
+    - name: Copy our flask app
+      copy:
+        src: flask_app.py
+        dest: /opt/flask_app
+
+    - name: Create a systemd file for our web app
+      copy:
+        src: flask_app.service
+        dest: /usr/lib/systemd/system/
+
+    - name: Make sure our flask app starts at boot and is started
+      systemd:
+        name: flask_app
+        state: restarted
+        enabled: true
+        daemon_reload: true
