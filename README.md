@@ -121,8 +121,8 @@ Our app architecture is quite simple! It is the hello world service.
 
 Flask app -> Redis DB
 
-Each request to `/` returns hello world and keeps a request count in redis.
-Each request to `/count` returns the count.
+* Each request to `/` returns hello world and keeps a request count in redis.
+* Each request to `/count` returns the count.
 
 We're using `systemd` to manage the flask app and redis!
 
