@@ -1,4 +1,4 @@
-# pipedev 2020-08-05 presentation: Infrastructure management
+# pipedev 2020-08-06 presentation: Infrastructure management
 
 This is a hands-on tutorial on infrastructure management for a VFX pipeline meetup in Vancouver.
 
@@ -22,7 +22,7 @@ My referral link if you want to use is https://m.do.co/c/73d2e2dcd335
 
 1. Register at digital ocean, create an account, set two factor authentication, set a budget limit to alert you once you're getting close to it (for example 20 dollars per month).
 
-2. Create an ssh key at https://cloud.digitalocean.com/account/security?i=ce2e94 so that you do not need to type your password to connect to VMs!
+2. Create an ssh key at https://cloud.digitalocean.com/account/security so that you do not need to type your password to connect to VMs!
 
 3. Create a new API Access Token (https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/)
 
