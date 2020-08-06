@@ -1,0 +1,3 @@
+- hosts: pipedev
+  roles:
+    - geerlingguy.docker

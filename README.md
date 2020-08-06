@@ -66,7 +66,9 @@ source .env
 ansible-playbook 01_create_vm.yml
 ```
 
-Voila! If you go to https://cloud.digitalocean.com/droplets/ you should be able to see your VM! 2 GB Ram / 40 GB of disk / 2 cores with your ssh key
+Voila! If you go to https://cloud.digitalocean.com/droplets/ you should be able to see your VM! 2 GB Ram / 40 GB of disk / 2 cores with your ssh key.
+
+It will print back the droplet id and the IP. You will need those. Ansible does allow for dynamic inventories and there were better ways to do it but we will skip for this tutorial.
 
 You can also ssh to it with 
 
@@ -135,9 +137,37 @@ ansible-playbook -i hosts.ini 03_install_app.yml
 
 If we have one or 10 servers all we need to do to horizontally scale the app is add more hosts to `hosts.ini`! (Of course we do not have a load balancer set up or service discovery)
 
+## Docker installation
+
+Just as an example let's see how to use a galaxy role to install docker!
+
+Ansible roles are way of sharing common logic to manage infrastructure, it usually exposes variables to configure the infrastructure (for example, which port to start apache on).
+
+You can author your own roles or use ansible galaxy (https://galaxy.ansible.com/) to find open source ones.
+
+We added in `ansible.cfg` our `roles_path` to install the galaxy roles in our project folder and then we can easily:
+
+```
+ansible-galaxy install geerlingguy.docker
+```
+
+And now we can install docker:
+
+```bash
+source .env
+ansible-playbook 04_docker_installation_vm.yml
+```
+
+Just like python packages you can have a `requirements.yml` to declare your dependencies and pin them down!
+
 ## Site
 
 It is common to have a single playbook that imports every playbook so that you do not need to run every single step individually!
+
+```bash
+source .env
+ansible-playbook 05_site.yml -i hosts
+```
 
 ## Destroy VM
 
@@ -145,11 +175,13 @@ We don't want to be billed for this prototype too much! Let's destroy it by pass
 
 ```bash
 source .env
-ansible-playbook 05_destroy_vm.yml -e"droplet_id=202731550"
+ansible-playbook 06_destroy_vm.yml -e"droplet_id=202731550"
 ```
 
 # Final notes
 
 This is by no means a production ready setup! Please use only as a simple application reference.
 
-We barely scratched the surface of what Ansible is capable of. I recommend having a look on ansible `roles` and the `vars` system next!
+We barely scratched the surface of what Ansible is capable of. I recommend having a close look on ansible `roles` and the `vars` system next! Host groups are a powerful way of having different templates for production vs dev or a site vs another.
+
+`tags` are also awesome to customize playbooks.

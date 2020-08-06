@@ -6,3 +6,6 @@
 
 - name: Install Application
   import_playbook: 03_install_app.yml
+
+- name: Install Docker
+  import_playbook: 04_docker_installation.yml
