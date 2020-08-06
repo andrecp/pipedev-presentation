@@ -59,7 +59,7 @@ Look at their API for the available images: https://developers.digitalocean.com/
 
 ### Running the playbook
 
-Our ansible playbook creates the VM and inserts our ssh key so that we can ssh in! It is important to note that *ansible is immutable*, that means you can re-run this playbook as many times as you want and Ansible will simply no-op if it is in the desired state already.
+Our ansible playbook creates the VM and inserts our ssh key so that we can ssh in! It is important to note that *ansible is idempotent*, that means you can re-run this playbook as many times as you want and Ansible will simply no-op if it is in the desired state already.
 
 ```bash
 source .env
