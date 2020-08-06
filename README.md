@@ -4,7 +4,7 @@ This is a hands-on tutorial on infrastructure management for a VFX pipeline meet
 
 ## Ansible
 
-This tutorial is using Ansible! You should be able to do the same with another configuration management tool such as Puppet, Salt, Chef and etc.
+This tutorial is using Ansible! You should be able to do the same with any other configuration management tool such as Puppet, Salt, Chef and etc.
 
 https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
